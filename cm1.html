@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Paisajes de Costa - Ciencias Sociales 5º Primaria</title>
+    <!-- Google Fonts para una tipografía moderna y profesional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --brand-primary: #0f172a; /* Azul pizarra oscuro elegante */
+            --brand-accent: #0ea5e9; /* Turquesa agua marina vibrante */
+            --brand-secondary: #38bdf8;
+            --brand-warning: #f59e0b; /* Coral/Oro para llamadas de atención */
+            --neutral-bg: #f8fafc; /* Gris ultra claro */
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --border-radius: 16px;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--neutral-bg);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Hero Header con imagen de fondo profesional y máscara */
+        header {
+            position: relative;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(3, 105, 161, 0.85)), 
+                        url('http://googleusercontent.com/image_collection/image_retrieval/9240676808520423376_0') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px 80px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: var(--neutral-bg);
+            clip-path: ellipse(60% 100% at 50% 100%);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            letter-spacing: -0.05em;
+            margin-bottom: 12px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--brand-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .tag-grade {
+            background-color: rgba(14, 165, 233, 0.2);
+            border: 1px solid rgba(14, 165, 233, 0.4);
+            color: var(--brand-secondary);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        /* Tarjeta de Introducción */
+        .intro-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .intro-text h3 {
+            color: var(--brand-primary);
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .intro-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .intro-badge {
+            background: var(--brand-warning);
+            color: var(--brand-primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 16px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Secciones */
+        .section-title-wrap {
+            margin: 50px 0 30px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-number {
+            background-color: var(--brand-accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            color: var(--brand-primary);
+            font-size: 1.8rem;
+            position: relative;
+        }
+
+        /* Grid de Contenidos Mejorado */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .visual-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .visual-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-img-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .visual-card:hover .card-img-container img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--brand-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+
+        .card-content h3 {
+            color: var(--brand-primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .concept-list {
+            list-style: none;
+        }
+
+        .concept-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .concept-item:last-child {
+            border-bottom: none;
+        }
+
+        .concept-bullet {
+            background-color: rgba(14, 165, 233, 0.1);
+            color: var(--brand-accent);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .concept-desc strong {
+            color: var(--brand-primary);
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 2px;
+        }
+
+        .concept-desc p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Secciones Interactivas / Aplicaciones */
+        .interactive-app {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            margin-bottom: 40px;
+        }
+
+        /* Estilos de la Trivia */
+        .trivia-quiz {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .quiz-card {
+            background-color: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .quiz-card h4 {
+            font-size: 1.15rem;
+            color: var(--brand-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .options-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .option-button {
+            background-color: white;
+            border: 2px solid #e2e8f0;
+            padding: 14px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+        }
+
+        .option-button:hover:not(:disabled) {
+            border-color: var(--brand-accent);
+            background-color: #f0f9ff;
+            transform: translateY(-2px);
+        }
+
+        .option-button.correct {
+            background-color: #dcfce7;
+            border-color: var(--success-color);
+            color: #166534;
+            font-weight: 700;
+        }
+
+        .option-button.incorrect {
+            background-color: #fee2e2;
+            border-color: var(--error-color);
+            color: #991b1b;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quiz-feedback.show-correct {
+            display: flex;
+            color: var(--success-color);
+        }
+
+        .quiz-feedback.show-incorrect {
+            display: flex;
+            color: var(--error-color);
+        }
+
+        /* Estilos Relacionar Definiciones */
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .match-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            align-items: center;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            gap: 20px;
+        }
+
+        .match-term {
+            font-weight: 700;
+            color: var(--brand-primary);
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .match-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 2px solid #cbd5e1;
+            background-color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .match-select:focus {
+            border-color: var(--brand-accent);
+        }
+
+        .match-select.valid {
+            border-color: var(--success-color);
+            background-color: #f0fdf4;
+            color: #166534;
+        }
+
+        .match-select.invalid {
+            border-color: var(--error-color);
+            background-color: #fef2f2;
+            color: #991b1b;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--brand-accent), var(--brand-primary));
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .result-panel {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--brand-primary);
+            color: white;
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .intro-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .intro-badge {
+                margin: 0 auto;
+            }
+            .match-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA PRINCIPAL -->
+    <header>
+        <span class="tag-grade">Ciencias Sociales</span>
+        <h1>Exploramos los Paisajes de Costa</h1>
+        <p>Una aventura interactiva para descubrir cómo el mar y el viento moldean nuestro relieve.</p>
+    </header>
+
+    <main>
+        <!-- INTRODUCCIÓN -->
+        <div class="intro-container">
+            <div class="intro-text">
+                <h3>¿Qué es el relieve de costa?</h3>
+                <p>La costa es la zona de contacto entre la tierra firme y el mar. Al ser una frontera natural, las fuerzas de las olas, las mareas y el viento erosionan las rocas constantemente, acumulando arena en unas zonas y recortando la roca en otras.</p>
+            </div>
+            <div class="intro-badge">🌍</div>
+        </div>
+
+        <!-- SECCIÓN 1: CONCEPTOS CLAVE -->
+        <div class="section-title-wrap">
+            <div class="section-number">1</div>
+            <h2 class="section-title">El Relieve de Costa</h2>
+        </div>
+
+        <div class="grid-cards">
+            <!-- Costa Alta -->
+            <div class="visual-card">
+                <div class="card-img-container">
+                    <span class="card-badge" style="background-color: #0369a1;">Rocosa</span>
+                    <!-- Imagen real de costa alta acantilada -->
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/9240676808520423376_1" alt="Acantilados altos al borde del océano">
+                </div>
+                <div class="card-content">
+                    <h3>La Costa Alta</h3>
+                    <ul class="concept-list">
+                        <li class="concept-item">
+                            <div class="concept-bullet">🪨</div>
+                            <div class="concept-desc">
+                                <strong>Acantilado</strong>
+                                <p>Paredes de roca elevadas y casi verticales que sufren el impacto directo de las olas del mar.</p>
+                            </div>
+                        </li>
+                        <li class="concept-item">
+                            <div class="concept-bullet">📍</div>
+                            <div class="concept-desc">
+                                <strong>Cabo</strong>
+                                <p>Una parte del terreno costero que sobresale adentrándose con fuerza en el océano.</p>
+                            </div>
+                        </li>
+                        <li class="concept-item">
+                            <div class="concept-bullet">🌊</div>
+                            <div class="concept-desc">
+                                <strong>Golfo</strong>
+                                <p>Una gran porción de mar que penetra en la tierra. Si es de tamaño reducido, la llamamos <strong>bahía</strong>.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Costa Baja -->
+            <div class="visual-card">
+                <div class="card-img-container">
+                    <span class="card-badge" style="background-color: #0ea5e9;">Arenosa</span>
+                    <!-- Imagen real de playa y costa baja arenosa -->
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/9240676808520423376_2" alt="Playa paradisíaca de arena blanca y aguas transparentes">
+                </div>
+                <div class="card-content">
+                    <h3>La Costa Baja</h3>
+                    <ul class="concept-list">
+                        <li class="concept-item">
+                            <div class="concept-bullet">🏖️</div>
+                            <div class="concept-desc">
+                                <strong>Playa</strong>
+                                <p>Terreno llano cubierto por sedimentos como arena, conchas o piedras arrastrados por la corriente.</p>
+                            </div>
+                        </li>
+                        <li class="concept-item">
+                            <div class="concept-bullet">🗺️</div>
+                            <div class="concept-desc">
+                                <strong>Península</strong>
+                                <p>Tierra rodeada de agua por todas partes excepto por una llamada <strong>istmo</strong>, que la une al continente.</p>
+                            </div>
+                        </li>
+                        <li class="concept-item">
+                            <div class="concept-bullet">🏝️</div>
+                            <div class="concept-desc">
+                                <strong>Isla y Archipiélago</strong>
+                                <p>La isla es tierra rodeada totalmente de agua. Un grupo de islas cercanas forma un <strong>archipiélago</strong>.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: TRIVIA INTERACTIVA -->
+        <div class="section-title-wrap">
+            <div class="section-number">2</div>
+            <h2 class="section-title">Mini-Trivia Interactiva</h2>
+        </div>
+
+        <div class="interactive-app">
+            <div class="trivia-quiz">
+                <!-- Pregunta 1 -->
+                <div class="quiz-card" id="q1">
+                    <h4><span>❓</span> ¿Qué accidente costero forma una pared de roca gigante que cae directamente al mar?</h4>
+                    <div class="options-group">
+                        <button class="option-button" onclick="evaluateQuiz('q1', this, false)">Una playa plana</button>
+                        <button class="option-button" onclick="evaluateQuiz('q1', this, true)">Un acantilado rocoso</button>
+                        <button class="option-button" onclick="evaluateQuiz('q1', this, false)">Un istmo de arena</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="quiz-card" id="q2">
+                    <h4><span>❓</span> ¿Cuál es el nombre del estrecho pasillo de tierra que une una península con el resto del continente?</h4>
+                    <div class="options-group">
+                        <button class="option-button" onclick="evaluateQuiz('q2', this, true)">El istmo</button>
+                        <button class="option-button" onclick="evaluateQuiz('q2', this, false)">El cabo</button>
+                        <button class="option-button" onclick="evaluateQuiz('q2', this, false)">La bahía</button>
+                    </div>
+                    <div class="quiz-feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: COMPROBACIÓN DE CONCEPTOS -->
+        <div class="section-title-wrap">
+            <div class="section-number">3</div>
+            <h2 class="section-title">El Reto de los Marinos</h2>
+        </div>
+
+        <div class="interactive-app">
+            <p style="margin-bottom: 25px; color: var(--text-muted)">Relaciona cada accidente costero con su definición correcta para demostrar que eres todo un cartógrafo profesional.</p>
+            
+            <div class="match-list">
+                <!-- Cabo -->
+                <div class="match-item">
+                    <span class="match-term">CABO</span>
+                    <select class="match-select" id="match1">
+                        <option value="">-- Elige la definición correcta --</option>
+                        <option value="incorrect1">Gran entrada del mar rodeada casi por completo de tierra.</option>
+                        <option value="correct">Porción alargada de tierra que se adentra claramente en el mar.</option>
+                        <option value="incorrect2">Tierra rodeada totalmente de agua por todos sus costados.</option>
+                    </select>
+                </div>
+
+                <!-- Golfo -->
+                <div class="match-item">
+                    <span class="match-term">GOLFO</span>
+                    <select class="match-select" id="match2">
+                        <option value="">-- Elige la definición correcta --</option>
+                        <option value="correct">Una gran entrada que hace el mar en la línea de la costa.</option>
+                        <option value="incorrect1">Fila vertical de rocas gigantes golpeadas por las olas.</option>
+                        <option value="incorrect2">Unión arenosa entre una isla y la costa principal.</option>
+                    </select>
+                </div>
+
+                <!-- Archipiélago -->
+                <div class="match-item">
+                    <span class="match-term">ARCHIPIÉLAGO</span>
+                    <select class="match-select" id="match3">
+                        <option value="">-- Elige la definición correcta --</option>
+                        <option value="incorrect1">La acumulación de cantos rodados y arena en la orilla.</option>
+                        <option value="incorrect2">Unión estrecha que evita que una península sea una isla.</option>
+                        <option value="correct">Un conjunto de varias islas agrupadas en una misma zona del mar.</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="evaluateMatching()">
+                <span>Comprobar Respuestas</span> 🚀
+            </button>
+            
+            <div id="matching-result-panel" class="result-panel"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Aventura de los Paisajes de Costa - Diseñado con fines educativos</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">Ciencias Sociales - 5º de Educación Primaria © 2026</p>
+    </footer>
+
+    <script>
+        // Lógica de la Trivia
+        function evaluateQuiz(questionId, buttonClicked, isCorrect) {
+            const questionContainer = document.getElementById(questionId);
+            const allButtons = questionContainer.querySelectorAll('.option-button');
+            const feedbackElement = questionContainer.querySelector('.quiz-feedback');
+
+            allButtons.forEach(btn => {
+                btn.disabled = true; // Evitar que el alumno cambie de opinión
+                if (btn === buttonClicked) {
+                    if (isCorrect) {
+                        btn.classList.add('correct');
+                        feedbackElement.innerHTML = "✨ ¡Excelente! Es la respuesta correcta.";
+                        feedbackElement.className = "quiz-feedback show-correct";
+                    } else {
+                        btn.classList.add('incorrect');
+                        feedbackElement.innerHTML = "❌ ¡Vaya! Esa no es la respuesta. ¡Repasa la teoría!";
+                        feedbackElement.className = "quiz-feedback show-incorrect";
+                    }
+                } else {
+                    btn.style.opacity = "0.5";
+                }
+            });
+        }
+
+        // Lógica de Relacionar Conceptos
+        function evaluateMatching() {
+            let hits = 0;
+            const totalElements = 3;
+
+            for (let i = 1; i <= totalElements; i++) {
+                const selector = document.getElementById('match' + i);
+                if (selector.value === 'correct') {
+                    hits++;
+                    selector.className = "match-select valid";
+                } else {
+                    selector.className = "match-select invalid";
+                }
+            }
+
+            const resultPanel = document.getElementById('matching-result-panel');
+            resultPanel.style.display = "block";
+
+            if (hits === totalElements) {
+                resultPanel.innerHTML = "🎉 ¡Magnífico! ¡Has conseguido 3/3 aciertos! Eres un experto oficial del relieve costero.";
+                resultPanel.style.backgroundColor = "#dcfce7";
+                resultPanel.style.color = "#15803d";
+                resultPanel.style.border = "1px solid #bbf7d0";
+            } else {
+                resultPanel.innerHTML = "🔍 Has conseguido " + hits + " de " + totalElements + " aciertos. Revisa las selecciones marcadas en rojo e inténtalo de nuevo.";
+                resultPanel.style.backgroundColor = "#fffbeb";
+                resultPanel.style.color = "#b45309";
+                resultPanel.style.border = "1px solid #fef3c7";
+            }
+        }
+    </script>
+</body>
+</html>

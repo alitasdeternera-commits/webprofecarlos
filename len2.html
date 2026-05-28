@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío de Tildes Andaluzas - Primaria</title>
+    <style>
+        :root {
+            --verde-andaluz: #00843D;
+            --blanco: #ffffff;
+            --rojo-error: #e74c3c;
+            --dorado: #C1A14E;
+            --azul-fondo: #f0f7f2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--azul-fondo);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 { color: var(--verde-andaluz); text-align: center; margin-bottom: 10px; }
+
+        .game-container {
+            background: white;
+            width: 100%;
+            max-width: 550px;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-top: 12px solid var(--verde-andaluz);
+            text-align: center;
+            position: relative;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background: #eee;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--verde-andaluz);
+            transition: width 0.4s ease;
+        }
+
+        .instruction { font-size: 1.2rem; margin-bottom: 25px; color: #333; }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .option-btn {
+            padding: 25px 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            border: 3px solid #eee;
+            border-radius: 15px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s ease;
+            color: var(--verde-andaluz);
+        }
+
+        .option-btn:hover {
+            border-color: var(--verde-andaluz);
+            background: #f9fffb;
+            transform: translateY(-3px);
+        }
+
+        /* Feedback visual */
+        .correct { background: var(--verde-andaluz) !important; color: white !important; border-color: var(--verde-andaluz) !important; }
+        .wrong { background: var(--rojo-error) !important; color: white !important; border-color: var(--rojo-error) !important; animation: shake 0.4s; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .final-screen { display: none; }
+        .btn-restart {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: var(--dorado);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>✍️ DESAFÍO DE TILDES</h1>
+    
+    <div class="game-container">
+        <div class="stats">
+            <span>Pregunta: <span id="current-q">1</span>/25</span>
+            <span>Puntos: <span id="score">0</span></span>
+        </div>
+
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="quiz-area">
+            <p class="instruction">Haz clic en la palabra <strong>correctamente</strong> escrita:</p>
+            <div class="options-grid">
+                <button class="option-btn" id="opt0" onclick="check(0)"></button>
+                <button class="option-btn" id="opt1" onclick="check(1)"></button>
+            </div>
+        </div>
+
+        <div id="final-area" class="final-screen">
+            <h2 style="color: var(--verde-andaluz)">¡Reto Terminado! 🏁</h2>
+            <p id="final-msg" style="font-size: 1.2rem;"></p>
+            <button class="btn-restart" onclick="location.reload()">Jugar otra vez</button>
+        </div>
+    </div>
+
+    <audio id="snd-well" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+    <audio id="snd-bad" src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3"></audio>
+
+    <script>
+        const bank = [
+            { c: "CÁDIZ", i: "CADIZ" }, { c: "ALMERÍA", i: "ALMERIA" },
+            { c: "JAÉN", i: "JAEN" }, { c: "ÚBEDA", i: "UBEDA" },
+            { c: "MÁLAGA", i: "MALAGA" }, { c: "CÓRDOBA", i: "CORDOBA" },
+            { c: "SEVILLA", i: "SEVÍLLA" }, { c: "DOÑANA", i: "DÓÑANA" },
+            { c: "ESTRECHO", i: "ESTRÉCHO" }, { c: "RÍO", i: "RIO" },
+            { c: "OCÉANO", i: "OCEANO" }, { c: "LINCE", i: "LÍNCE" },
+            { c: "OLIVO", i: "ÓLIVO" }, { c: "ÁFRICA", i: "AFRICA" },
+            { c: "HUELVA", i: "HUÉLVA" }, { c: "MEZQUITA", i: "MÉZQUITA" },
+            { c: "NAZARÍ", i: "NAZARI" }, { c: "GIRALDA", i: "GIRÁLDA" },
+            { c: "ROMERÍA", i: "ROMERIA" }, { c: "FLAMENCO", i: "FLAMÉNCO" },
+            { c: "BOQUERÓN", i: "BOQUERON" }, { c: "CAÑA", i: "CÁÑA" },
+            { c: "ESPETO", i: "ESPÉTO" }, { c: "QUÉDATE", i: "QUEDATE" },
+            { c: "MÁGICO", i: "MAGICO" }
+        ];
+
+        // Mezclar las palabras para que cada partida sea distinta
+        bank.sort(() => Math.random() - 0.5);
+
+        let current = 0;
+        let score = 0;
+        let correctSide = 0;
+        let active = true;
+
+        function load() {
+            if (current >= bank.length) {
+                showEnd();
+                return;
+            }
+            active = true;
+            document.getElementById('current-q').innerText = current + 1;
+            document.getElementById('progress-bar').style.width = (current / bank.length * 100) + "%";
+            
+            correctSide = Math.floor(Math.random() * 2);
+            document.getElementById('opt' + correctSide).innerText = bank[current].c;
+            document.getElementById('opt' + (1 - correctSide)).innerText = bank[current].i;
+            
+            document.getElementById('opt0').className = "option-btn";
+            document.getElementById('opt1').className = "option-btn";
+        }
+
+        function check(side) {
+            if (!active) return;
+            active = false;
+            
+            const btn = document.getElementById('opt' + side);
+            if (side === correctSide) {
+                btn.classList.add('correct');
+                document.getElementById('snd-well').play();
+                score++;
+                document.getElementById('score').innerText = score;
+            } else {
+                btn.classList.add('wrong');
+                document.getElementById('opt' + correctSide).classList.add('correct');
+                document.getElementById('snd-bad').play();
+            }
+
+            setTimeout(() => {
+                current++;
+                load();
+            }, 1300);
+        }
+
+        function showEnd() {
+            document.getElementById('quiz-area').style.display = 'none';
+            document.getElementById('final-area').style.display = 'block';
+            document.getElementById('progress-bar').style.width = "100%";
+            document.getElementById('final-msg').innerText = `Has conseguido ${score} de ${bank.length} puntos. ¡Eres un experto en ortografía andaluza!`;
+        }
+
+        load();
+    </script>
+</body>
+</html>
