@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La web del profe Carlos</title>
+    <style>
+        /* --- ESTILOS GENERALES Y COLORES LLAMATIVOS --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif; /* Fuentes amigables para niños */
+        }
+
+        body {
+            background-color: #eef9ff;
+            color: #333;
+        }
+
+        /* --- CABECERA --- */
+        header {
+            background: linear-gradient(135deg, #ff6b6b, #ffbe0b);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        nav {
+            background-color: #3a86ff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Menú principal */
+        .menu-principal {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        /* Elementos del menú */
+        .menu-item {
+            position: relative;
+        }
+
+        .menu-item > a, .dropbtn {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: background 0.3s;
+        }
+
+        /* Colores individuales para cada asignatura */
+        .mates-menu > .dropbtn { background-color: #ff007f; }
+        .lengua-menu > .dropbtn { background-color: #00bbf9; }
+        .conos-menu > .dropbtn { background-color: #00f5d4; color: #222; }
+
+        .menu-item:hover > .dropbtn {
+            filter: brightness(0.9);
+        }
+
+        /* --- MENÚS DESPLEGABLES --- */
+        .desplegable {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        .desplegable a {
+            color: #333;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            display: block;
+            font-size: 1rem;
+            transition: background 0.2s;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .desplegable a:hover {
+            background-color: #f0f0f0;
+            color: #3a86ff;
+            padding-left: 1.2rem; /* Efecto divertido al pasar el ratón */
+        }
+
+        /* Mostrar el desplegable al pasar el ratón (PC) */
+        .menu-item:hover .desplegable {
+            display: block;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .bienvenida {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            border: 4px rounded #ffbe0b;
+        }
+
+        .bienvenida h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        /* --- ADAPTACIÓN PARA MÓVILES Y TABLETS (RESPONSIVE) --- */
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .menu-principal {
+                flex-direction: column; /* Los menús se apilan verticalmente en el móvil */
+            }
+
+            .desplegable {
+                position: relative; /* En móvil, el desplegable empuja el contenido hacia abajo */
+                width: 100%;
+                box-shadow: none;
+                display: none; /* Se puede alternar con clics si fuera necesario, pero por simplicidad hover funciona */
+            }
+            
+            /* En móviles, mostramos los desplegables abiertos o al tocar */
+            .menu-item:active .desplegable, .menu-item:hover .desplegable {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>¡La web del profe Carlos! 🚀</h1>
+        <p>Aprender jugando es mucho más divertido</p>
+    </header>
+
+    <nav>
+        <ul class="menu-principal">
+            
+            <li class="menu-item mates-menu">
+                <button class="dropbtn">📐 Mates 👇</button>
+                <div class="desplegable">
+                    <a href="#">Tema 1: Sumas y Restas</a>
+                    <a href="#">Tema 2: Multiplicaciones</a>
+                    <a href="#">Juegos de Mates</a>
+                </div>
+            </li>
+
+            <li class="menu-item lengua-menu">
+                <button class="dropbtn">📚 Lengua 👇</button>
+                <div class="desplegable">
+                    <a href="#">Tema 1: La Ortografía</a>
+                    <a href="#">Tema 2: Gramática Divertida</a>
+                    <a href="#">Cuentos y Lecturas</a>
+                </div>
+            </li>
+
+            <li class="menu-item conos-menu">
+                <button class="dropbtn">🌍 Cono 👇</button>
+                <div class="desplegable">
+                    <a href="#">Tema 1: El Cuerpo Humano</a>
+                    <a href="#">Tema 2: Animales y Plantas</a>
+                    <a href="#">Experimentos Locos</a>
+                </div>
+            </li>
+
+        </ul>
+    </nav>
+
+    <main>
+        <section class="bienvenida">
+            <h2>¡Hola, superalumnos! 🌟</h2>
+            <p>Bienvenidos a nuestro rincón secreto de aprendizaje. Elegid una de las asignaturas del menú de arriba para empezar la aventura de hoy.</p>
+        </section>
+    </main>
+
+</body>
+</html>
